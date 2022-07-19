@@ -7,40 +7,79 @@ import {
     ToolOutlined,
     UserOutlined,
     FileZipOutlined,
+    InboxOutlined,
+    UsergroupAddOutlined,
 } from '@ant-design/icons'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Paths } from '../../App'
+import styled from 'styled-components'
+import { ItemType } from 'antd/lib/menu/hooks/useItems'
 
-const MenuItem = Menu.Item
+const Container = styled.div`
+    height: 100%;
+    display: flex;
+    flex-drection: column;
+`
+const ContentContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+`
 
-export const NavigationSideBar = () => {
+interface Props {
+    children?: JSX.Element | JSX.Element[]
+}
+
+export const NavigationSideBar = ({ children }: Props) => {
+    const navigate = useNavigate()
     const onClick: MenuProps['onClick'] = (e) => {
-        console.log(e)
+        navigate(`/${e.key}`, { replace: true })
     }
 
+    const items: ItemType[] = [
+        { label: 'Leads', key: Paths.Leads, icon: <FileOutlined /> },
+        { label: 'Deals', key: Paths.Deals, icon: <FileDoneOutlined /> },
+        {
+            label: 'Documents',
+            key: Paths.Documents,
+            icon: <MailOutlined />,
+        },
+        {
+            label: 'Products',
+            key: Paths.Products,
+            icon: <InboxOutlined />,
+        },
+        {
+            label: 'Mails',
+            key: Paths.Mails,
+            icon: <MailOutlined />,
+        },
+        {
+            label: 'Tasks',
+            key: Paths.Tasks,
+            icon: <CalendarOutlined />,
+        },
+        {
+            label: 'Connections',
+            key: Paths.Connections,
+            icon: <UsergroupAddOutlined />,
+        },
+        {
+            label: 'Settings',
+            key: Paths.Settings,
+            icon: <ToolOutlined />,
+        },
+        {
+            label: 'Profile',
+            key: Paths.Profile,
+            icon: <UserOutlined />,
+        },
+    ]
+
     return (
-        <Menu onClick={onClick} style={{ width: 256 }} mode="vertical" tabIndex={0}>
-            <MenuItem key={0} icon={<FileOutlined />} title="Leads">
-                <Link to={Paths.Leads}>Leads</Link>
-            </MenuItem>
-            <MenuItem key={1} icon={<FileDoneOutlined />} title="Deals">
-                <Link to={Paths.Deals}>Deals</Link>
-            </MenuItem>
-            <MenuItem key={2} icon={<FileZipOutlined />} title="Documents">
-                <Link to={Paths.Documents}>Documents</Link>
-            </MenuItem>
-            <MenuItem key={3} icon={<MailOutlined />} title="Mails">
-                <Link to={Paths.Mails}>Mails</Link>
-            </MenuItem>
-            <MenuItem key={4} icon={<CalendarOutlined />} title="Tasks">
-                <Link to={Paths.Tasks}>Tasks</Link>
-            </MenuItem>
-            <MenuItem key={5} icon={<UserOutlined />} title="Connections">
-                <Link to={Paths.Connections}>Connections</Link>
-            </MenuItem>
-            <MenuItem key={6} icon={<ToolOutlined />} title="Settings">
-                <Link to={Paths.Leads}>Settings</Link>
-            </MenuItem>
-        </Menu>
+        <Container>
+            <Menu onClick={onClick} style={{ width: 150 }} mode="vertical" items={items} />
+
+            <ContentContainer>{children}</ContentContainer>
+        </Container>
     )
 }

@@ -1,14 +1,14 @@
 import { Response } from '../response.interceptor'
 import { backendConnection } from './backend-connection'
 
-export interface User {
+export interface Identity {
     id: number
     email: string
     password: string
 }
 
 export interface LoginResponse {
-    user: User
+    identity: Identity
     jwt: string
 }
 
@@ -37,7 +37,13 @@ export const loginRequest = ({
     password,
 }: LoginRequestDTO): Promise<Response<LoginResponse>> =>
     backendConnection.request({
-        url: '/identity/authenticate',
+        url: '/identity/login',
         method: 'POST',
         data: { email, password },
+    })
+
+export const authenticateRequest = (): Promise<Response<LoginResponse>> =>
+    backendConnection.request({
+        url: '/identity/authenticate',
+        method: 'GET',
     })

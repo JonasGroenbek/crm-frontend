@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { Paths } from '../../../../App'
 import { loginRequest } from '../../../../http/back-end/identity'
-import { setJwt, setUser } from '../../../../slices/identity-slice'
+import { setIdentity, setJwt } from '../../../../slices/identity-slice'
 import { validateLogin } from '../../../util/validation'
 import { errorNotification } from '../../notification'
 import { ModalMode } from '../AuthenticateModal'
@@ -31,7 +31,7 @@ export const Login = ({ onCancel, setMode }: LoginProps) => {
         const response = await loginRequest({ email, password })
         if (response.successful) {
             dispatch(setJwt(response.data.jwt))
-            dispatch(setUser(response.data.user))
+            dispatch(setIdentity(response.data.identity))
             navigate(Paths.Leads)
             onCancel()
         } else {

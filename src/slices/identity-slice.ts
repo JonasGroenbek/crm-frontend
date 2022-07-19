@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { LOCAL_STORAGE_TOKEN_KEY } from '../http/back-end/backend-connection'
-import { User } from '../http/back-end/identity'
+import { Identity } from '../http/back-end/identity'
 import { RootState } from '../store'
 
 export enum StoreStage {
@@ -10,13 +10,13 @@ export enum StoreStage {
 }
 
 export interface State {
-    user?: User
+    identity?: Identity
     authenticateModalVisible: boolean
     jwt?: string
 }
 
 const initialState: State = {
-    user: undefined,
+    identity: undefined,
     jwt: undefined,
     authenticateModalVisible: false,
 }
@@ -25,12 +25,17 @@ export const usersSlice = createSlice({
     name: 'identity',
     initialState,
     reducers: {
-        setUser: (state, action: PayloadAction<User>) => {
-            state.user = action.payload
+        setIdentity: (state, action: PayloadAction<Identity>) => {
+            state.identity = action.payload
         },
-        setJwt: (state, action: PayloadAction<string | undefined>) => {
-            localStorage.setItem(LOCAL_STORAGE_TOKEN_KEY, action.payload ?? '')
+        setJwt: (state, action: PayloadAction<string>) => {
+            localStorage.setItem(LOCAL_STORAGE_TOKEN_KEY, action.payload)
             state.jwt = action.payload
+        },
+        logOut: (state) => {
+            localStorage.removeItem(LOCAL_STORAGE_TOKEN_KEY)
+            state.jwt = undefined
+            state.identity = undefined
         },
         setAuthenticationModalVisible: (state, action: PayloadAction<boolean>) => {
             state.authenticateModalVisible = action.payload
@@ -38,6 +43,14 @@ export const usersSlice = createSlice({
     },
 })
 
-export const { setUser, setAuthenticationModalVisible, setJwt } = usersSlice.actions
+export const selectIsAuthenticated = (state: RootState) => {
+    return (
+        !!state.identity.identity &&
+        !!state.identity.jwt &&
+        !!localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY)
+    )
+}
+
+export const { setIdentity, setAuthenticationModalVisible, setJwt, logOut } = usersSlice.actions
 
 export default usersSlice.reducer

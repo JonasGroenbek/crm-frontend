@@ -6,11 +6,11 @@ const Container = styled.div`
     flex-direction: column;
 `
 
-export const LoginRoute = () => {
+export const AboutRoute = () => {
     return (
         <Container>
             <NavigationTopBar />
-            Main page
+            About
         </Container>
     )
 }
