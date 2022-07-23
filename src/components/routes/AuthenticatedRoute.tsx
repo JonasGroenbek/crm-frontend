@@ -8,6 +8,7 @@ interface Props {
 }
 export const AuthenticatedRoute = ({ element }: Props) => {
     const isAuthenticated = useSelector(selectIsAuthenticated)
+
     return isAuthenticated ? (
         <NavigationSideBar>{element}</NavigationSideBar>
     ) : (

@@ -1,9 +1,30 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
-import withResponseInterceptor from '../response.interceptor'
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
+
+interface BaseResponse {
+    status: number
+    is4xx: boolean
+    is5xx: boolean
+}
+
+export interface SuccessfulResponse<T> extends BaseResponse {
+    successful: true
+    data: T
+}
+
+export interface FailedResponse extends BaseResponse {
+    successful: false
+    message: string
+}
+
+export type Response<T> = SuccessfulResponse<T> | FailedResponse
+
+export interface TypedAxiosInstance {
+    request<T = any>(config: AxiosRequestConfig): Promise<Response<T>>
+}
 
 export const LOCAL_STORAGE_TOKEN_KEY = 'authentication_token'
 
-const backendConnection = axios.create({
+const connection = axios.create({
     baseURL: 'http://localhost:3010',
 })
 
@@ -12,15 +33,39 @@ const backendConnection = axios.create({
 	Best way to handle this globally is to use request interceptors
 	https://stackoverflow.com/questions/57624855/how-to-use-dynamic-auth-header-in-axiosvue-js
 */
-backendConnection.interceptors.request.use((requestConfig: AxiosRequestConfig<AxiosInstance>) => {
+
+const withHeaderInterceptor = (requestConfig: AxiosRequestConfig<AxiosInstance>) => {
     requestConfig.headers = {
         'Access-Control-Allow-Origin': '*',
         Authorization: `Bearer ${localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY)}`,
         'Cache-Control': 'no-cache',
     }
     return requestConfig
-})
+}
 
-withResponseInterceptor(backendConnection)
+connection.interceptors.request.use(withHeaderInterceptor)
+
+const withResponseFormatterInterceptorSuccess = (resolvedResponse: AxiosResponse<any, any>) => {
+    return {
+        data: resolvedResponse?.data,
+        status: resolvedResponse.status,
+        successful: true,
+    }
+}
+const withResponseFormatterInterceptorOnRejected = (error: any) => {
+    const { response } = error
+    //Console.log is here for debugging purposes for Nginx. Leave it there!
+    return {
+        status: response?.status || NaN,
+        successful: false,
+        message: response?.data?.response || 'Something went wrong',
+    }
+}
+connection.interceptors.response.use(
+    withResponseFormatterInterceptorSuccess,
+    withResponseFormatterInterceptorOnRejected
+)
+
+const backendConnection = connection as TypedAxiosInstance
 
 export { backendConnection }

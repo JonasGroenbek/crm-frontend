@@ -6,11 +6,10 @@ import {
     FileOutlined,
     ToolOutlined,
     UserOutlined,
-    FileZipOutlined,
     InboxOutlined,
     UsergroupAddOutlined,
 } from '@ant-design/icons'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Paths } from '../../App'
 import styled from 'styled-components'
 import { ItemType } from 'antd/lib/menu/hooks/useItems'
@@ -59,8 +58,8 @@ export const NavigationSideBar = ({ children }: Props) => {
             icon: <CalendarOutlined />,
         },
         {
-            label: 'Connections',
-            key: Paths.Connections,
+            label: 'Contacts',
+            key: Paths.Contacts,
             icon: <UsergroupAddOutlined />,
         },
         {

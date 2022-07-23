@@ -1,10 +1,8 @@
-import { Profiler, useEffect } from 'react'
-import { Provider, useDispatch } from 'react-redux'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import { NavigationSideBar } from './components/navigation/NavigationSideBar'
 import { TasksRoute } from './components/routes/tasks/TasksRoute'
 import { AuthenticatedRoute } from './components/routes/AuthenticatedRoute'
-import { ConnectionsRoute } from './components/routes/connections/ConnectionsRoute'
 import { DealsRoute } from './components/routes/deals/DealsRoute'
 import { DocumentsRoute } from './components/routes/documents/DocumentsRoute'
 import { LeadsRoute } from './components/routes/leads/LeadsRoute'
@@ -14,16 +12,16 @@ import { NoMatchRoute } from './components/routes/no-match/NoMatch'
 import { ProductsRoute } from './components/routes/products/ProductsRoute'
 import { SettingsRoute } from './components/routes/settings/SettingsRoute'
 import { AuthenticateModal } from './components/general/modals/AuthenticateModal'
-import styled from 'styled-components'
 import { LOCAL_STORAGE_TOKEN_KEY } from './http/back-end/backend-connection'
 import { authenticateRequest } from './http/back-end/identity'
 import { setIdentity, setJwt } from './slices/identity-slice'
 import { AboutRoute } from './components/routes/about/AboutRoute'
 import { ProfileRoute } from './components/routes/profile/ProfileRoute'
+import { ContactsRoute } from './components/routes/contacts/ContactsRoute'
 
 export enum Paths {
     Tasks = 'tasks',
-    Connections = 'connections',
+    Contacts = 'contacts',
     Deals = 'deals',
     Documents = 'documents',
     Leads = 'leads',
@@ -61,8 +59,8 @@ export const App = () => {
                     element={<AuthenticatedRoute element={<TasksRoute />} />}
                 />
                 <Route
-                    path={Paths.Connections}
-                    element={<AuthenticatedRoute element={<ConnectionsRoute />} />}
+                    path={Paths.Contacts}
+                    element={<AuthenticatedRoute element={<ContactsRoute />} />}
                 />
                 <Route
                     path={Paths.Deals}

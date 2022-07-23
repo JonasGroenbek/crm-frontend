@@ -4,6 +4,6 @@ const Container = styled.div`
     display: flex;
 `
 
-export const ConnectionsRoute = () => {
+export const ContactsRoute = () => {
     return <Container>Connections</Container>
 }
