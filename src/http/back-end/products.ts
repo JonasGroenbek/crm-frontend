@@ -15,3 +15,9 @@ export const getProductsRequest = (
         method: 'GET',
         params: query,
     })
+
+export const getProductByIdRequest = (id: number): Promise<Response<Product>> =>
+    backendConnection.request({
+        url: `/products/${id}`,
+        method: 'GET',
+    })

@@ -1,22 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
-
-interface BaseResponse {
-    status: number
-    is4xx: boolean
-    is5xx: boolean
-}
-
-export interface SuccessfulResponse<T> extends BaseResponse {
-    successful: true
-    data: T
-}
-
-export interface FailedResponse extends BaseResponse {
-    successful: false
-    message: string
-}
-
-export type Response<T> = SuccessfulResponse<T> | FailedResponse
+import { Response } from '../response.interceptor'
 
 export interface TypedAxiosInstance {
     request<T = any>(config: AxiosRequestConfig): Promise<Response<T>>

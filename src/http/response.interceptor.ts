@@ -3,8 +3,6 @@ import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 
 interface BaseResponse {
     status: number
-    is4xx: boolean
-    is5xx: boolean
 }
 
 export interface SuccessfulResponse<T> extends BaseResponse {
@@ -30,8 +28,6 @@ export default function withResponseInterceptor(instance: AxiosInstance): TypedA
                 data: resolvedResponse?.data,
                 status: resolvedResponse.status,
                 successful: true,
-                is4xx: false,
-                is5xx: false,
             }
         },
         (error) => {
@@ -42,8 +38,6 @@ export default function withResponseInterceptor(instance: AxiosInstance): TypedA
                 status: response?.status || NaN,
                 successful: false,
                 message: response?.data?.response || 'Something went wrong',
-                is4xx: response?.status >= 400 && response?.status < 500,
-                is5xx: response?.status >= 500 && response?.status < 600,
             }
         }
     )

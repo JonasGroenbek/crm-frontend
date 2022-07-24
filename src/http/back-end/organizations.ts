@@ -15,3 +15,9 @@ export const getOrganizationsRequest = (
         method: 'GET',
         params: query,
     })
+
+export const getOrganizationByIdRequest = (id: number): Promise<Response<Organization>> =>
+    backendConnection.request({
+        url: `/organizations/${id}`,
+        method: 'GET',
+    })

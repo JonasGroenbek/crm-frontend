@@ -15,3 +15,9 @@ export const getContactsRequest = (
         method: 'GET',
         params: query,
     })
+
+export const getContactByIdRequest = (id: number): Promise<Response<Contact>> =>
+    backendConnection.request({
+        url: `/contacts/${id}`,
+        method: 'GET',
+    })

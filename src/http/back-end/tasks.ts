@@ -15,3 +15,9 @@ export const getTasksRequest = (
         method: 'GET',
         params: query,
     })
+
+export const getTaskByIdRequest = (id: number): Promise<Response<Task>> =>
+    backendConnection.request({
+        url: `/tasks/${id}`,
+        method: 'GET',
+    })

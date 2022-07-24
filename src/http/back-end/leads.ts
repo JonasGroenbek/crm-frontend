@@ -15,3 +15,8 @@ export const getLeadsRequest = (
         method: 'GET',
         params: query,
     })
+export const getLeadByIdRequest = (id: number): Promise<Response<Lead>> =>
+    backendConnection.request({
+        url: `/leads/${id}`,
+        method: 'GET',
+    })

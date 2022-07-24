@@ -10,6 +10,14 @@ export enum ActiveModal {
     CreateOrganizationModal = 'CreateOrganizationModal',
     CreateProductModal = 'CreateProductModal',
     CreateTaskModal = 'CreateTaskModal',
+    UpdateDealModal = 'UpdateDealModal',
+    UpdateContactModal = 'UpdateContactModal',
+    UpdateDocumentModal = 'UpdateDocumentModal',
+    UpdateIdentityModal = 'UpdateIdentityModal',
+    UpdateLeadModal = 'UpdateLeadModal',
+    UpdateOrganizationModal = 'UpdateOrganizationModal',
+    UpdateProductModal = 'UpdateProductModal',
+    UpdateTaskModal = 'UpdateTaskModal',
     None = 'None',
 }
 

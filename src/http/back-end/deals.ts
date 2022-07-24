@@ -15,3 +15,9 @@ export const getDealsRequest = (
         method: 'GET',
         params: query,
     })
+
+export const getDealByIdRequest = (id: number): Promise<Response<Deal>> =>
+    backendConnection.request({
+        url: `/deals/${id}`,
+        method: 'GET',
+    })

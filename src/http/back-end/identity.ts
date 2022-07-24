@@ -56,3 +56,9 @@ export const getIdentitiesRequest = (
         method: 'GET',
         params: query,
     })
+
+export const getIdentityByIdRequest = (id: number): Promise<Response<Identity>> =>
+    backendConnection.request({
+        url: `/identity/${id}`,
+        method: 'GET',
+    })

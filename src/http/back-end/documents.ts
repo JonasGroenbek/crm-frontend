@@ -15,3 +15,9 @@ export const getDocumentsRequest = (
         method: 'GET',
         params: query,
     })
+
+export const getDocumentByIdRequest = (id: number): Promise<Response<Document>> =>
+    backendConnection.request({
+        url: `/documents/${id}`,
+        method: 'GET',
+    })

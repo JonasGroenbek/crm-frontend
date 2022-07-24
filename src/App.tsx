@@ -21,6 +21,22 @@ import { Role } from './models/entities'
 import { CompanyRoute } from './components/routes/company/CompanyRoute'
 import { OrganizationsRoute } from './components/routes/organizations/OrganizationsRoute'
 import { AuthenticateModal } from './components/general/modals/identity/AuthenticateModal'
+import { CreateIdentityModal } from './components/general/modals/identity/CreateIdentityModal'
+import { UpdateIdentityModal } from './components/general/modals/identity/UpdateIdentityModal'
+import { CreateContactModal } from './components/general/modals/contacts/CreateContactModal'
+import { UpdateContactModal } from './components/general/modals/contacts/UpdateContactModal'
+import { CreateDocumentModal } from './components/general/modals/documents/CreateDocumentModal'
+import { UpdateDocumentModal } from './components/general/modals/documents/UpdateDocumentModal'
+import { CreateLeadModal } from './components/general/modals/leads/CreateLeadModal'
+import { UpdateLeadModal } from './components/general/modals/leads/UpdateLeadModal'
+import { CreateProductModal } from './components/general/modals/products/CreateProductmodal'
+import { UpdateProductModal } from './components/general/modals/products/UpdateProductModal'
+import { CreateTaskModal } from './components/general/modals/tasks/CreateTaskModal'
+import { UpdateTaskModal } from './components/general/modals/tasks/UpdateTaskModal'
+import { CreateDealModal } from './components/general/modals/deals/CreateDealModal'
+import { UpdateDealModal } from './components/general/modals/deals/UpdateDealModal'
+import { CreateOrganizationModal } from './components/general/modals/organizations/CreateOrganizationModal'
+import { UpdateOrganizationModal } from './components/general/modals/organizations/UpdateOrganizationModal'
 
 export enum Paths {
     Tasks = 'tasks',
@@ -157,6 +173,22 @@ export const App = () => {
             </Routes>
             {/** Modals */}
             <AuthenticateModal />
+            <CreateContactModal />
+            <UpdateContactModal />
+            <CreateDocumentModal />
+            <UpdateDocumentModal />
+            <CreateOrganizationModal />
+            <UpdateOrganizationModal />
+            <CreateIdentityModal />
+            <UpdateIdentityModal />
+            <CreateLeadModal />
+            <UpdateLeadModal />
+            <CreateDealModal />
+            <UpdateDealModal />
+            <CreateProductModal />
+            <UpdateProductModal />
+            <CreateTaskModal />
+            <UpdateTaskModal />
         </Router>
     )
 }
