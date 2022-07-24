@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { Paths } from '../../App'
 import { ItemType } from 'antd/lib/menu/hooks/useItems'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectIsAuthenticated, setAuthenticationModalVisible } from '../../slices/identity-slice'
+import { selectIsAuthenticated } from '../../slices/identity-slice'
+import { ActiveModal, openModal } from '../../slices/modals-slice'
 
 export enum Action {
     Login = 'Login',
@@ -17,7 +18,7 @@ export const NavigationTopBar = () => {
     const onClick: MenuProps['onClick'] = (e) => {
         if (Object.values(Action).includes(e.key as Action)) {
             if (e.key === Action.Login) {
-                dispatch(setAuthenticationModalVisible(true))
+                dispatch(openModal({ modal: ActiveModal.AuthenticateModal }))
             }
             if (e.key === Action.OpenApp) {
                 navigate(`/${Paths.Leads}`, { replace: true })

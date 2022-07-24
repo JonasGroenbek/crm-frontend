@@ -5,6 +5,6 @@ const Container = styled.div`
     width: 100%;
 `
 
-export const MailsRoute = () => {
-    return <Container>Mails</Container>
+export const SubscriptionTab = () => {
+    return <Container>Subscription Tab</Container>
 }

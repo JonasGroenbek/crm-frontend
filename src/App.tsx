@@ -11,13 +11,16 @@ import { MailsRoute } from './components/routes/mails/MailsRoute'
 import { NoMatchRoute } from './components/routes/no-match/NoMatch'
 import { ProductsRoute } from './components/routes/products/ProductsRoute'
 import { SettingsRoute } from './components/routes/settings/SettingsRoute'
-import { AuthenticateModal } from './components/general/modals/AuthenticateModal'
 import { LOCAL_STORAGE_TOKEN_KEY } from './http/back-end/backend-connection'
 import { authenticateRequest } from './http/back-end/identity'
 import { setIdentity, setJwt } from './slices/identity-slice'
 import { AboutRoute } from './components/routes/about/AboutRoute'
 import { ProfileRoute } from './components/routes/profile/ProfileRoute'
 import { ContactsRoute } from './components/routes/contacts/ContactsRoute'
+import { Role } from './models/entities'
+import { CompanyRoute } from './components/routes/company/CompanyRoute'
+import { OrganizationsRoute } from './components/routes/organizations/OrganizationsRoute'
+import { AuthenticateModal } from './components/general/modals/identity/AuthenticateModal'
 
 export enum Paths {
     Tasks = 'tasks',
@@ -31,6 +34,8 @@ export enum Paths {
     Login = 'login',
     About = 'about',
     Profile = 'profile',
+    Company = 'company',
+    Organizations = 'organizations',
     Front = '',
 }
 
@@ -56,39 +61,97 @@ export const App = () => {
                 <Route path={Paths.About} element={<AboutRoute />} />
                 <Route
                     path={Paths.Tasks}
-                    element={<AuthenticatedRoute element={<TasksRoute />} />}
+                    element={
+                        <AuthenticatedRoute
+                            roles={[Role.Admin, Role.Sales]}
+                            element={<TasksRoute />}
+                        />
+                    }
                 />
                 <Route
                     path={Paths.Contacts}
-                    element={<AuthenticatedRoute element={<ContactsRoute />} />}
+                    element={
+                        <AuthenticatedRoute
+                            roles={[Role.Admin, Role.Sales]}
+                            element={<ContactsRoute />}
+                        />
+                    }
                 />
                 <Route
                     path={Paths.Deals}
-                    element={<AuthenticatedRoute element={<DealsRoute />} />}
+                    element={
+                        <AuthenticatedRoute
+                            roles={[Role.Admin, Role.Sales]}
+                            element={<DealsRoute />}
+                        />
+                    }
                 />
                 <Route
                     path={Paths.Documents}
-                    element={<AuthenticatedRoute element={<DocumentsRoute />} />}
+                    element={
+                        <AuthenticatedRoute
+                            roles={[Role.Admin, Role.Sales]}
+                            element={<DocumentsRoute />}
+                        />
+                    }
                 />
                 <Route
                     path={Paths.Leads}
-                    element={<AuthenticatedRoute element={<LeadsRoute />} />}
+                    element={
+                        <AuthenticatedRoute
+                            roles={[Role.Admin, Role.Sales]}
+                            element={<LeadsRoute />}
+                        />
+                    }
                 />
                 <Route
                     path={Paths.Mails}
-                    element={<AuthenticatedRoute element={<MailsRoute />} />}
+                    element={
+                        <AuthenticatedRoute
+                            roles={[Role.Admin, Role.Sales]}
+                            element={<MailsRoute />}
+                        />
+                    }
                 />
                 <Route
                     path={Paths.Products}
-                    element={<AuthenticatedRoute element={<ProductsRoute />} />}
+                    element={
+                        <AuthenticatedRoute
+                            roles={[Role.Admin, Role.Sales]}
+                            element={<ProductsRoute />}
+                        />
+                    }
+                />
+                <Route
+                    path={Paths.Organizations}
+                    element={
+                        <AuthenticatedRoute
+                            roles={[Role.Admin, Role.Sales]}
+                            element={<OrganizationsRoute />}
+                        />
+                    }
                 />
                 <Route
                     path={Paths.Settings}
-                    element={<AuthenticatedRoute element={<SettingsRoute />} />}
+                    element={
+                        <AuthenticatedRoute
+                            roles={[Role.Admin, Role.Sales]}
+                            element={<SettingsRoute />}
+                        />
+                    }
                 />
                 <Route
                     path={Paths.Profile}
-                    element={<AuthenticatedRoute element={<ProfileRoute />} />}
+                    element={
+                        <AuthenticatedRoute
+                            roles={[Role.Admin, Role.Sales]}
+                            element={<ProfileRoute />}
+                        />
+                    }
+                />
+                <Route
+                    path={Paths.Company}
+                    element={<AuthenticatedRoute roles={[Role.Admin]} element={<CompanyRoute />} />}
                 />
                 <Route path="*" element={<NoMatchRoute />} />
             </Routes>

@@ -8,11 +8,16 @@ import {
     UserOutlined,
     InboxOutlined,
     UsergroupAddOutlined,
+    BankOutlined,
+    HomeOutlined,
 } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
 import { Paths } from '../../App'
 import styled from 'styled-components'
 import { ItemType } from 'antd/lib/menu/hooks/useItems'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../store'
+import { Role } from '../../models/entities'
 
 const Container = styled.div`
     height: 100%;
@@ -22,6 +27,7 @@ const Container = styled.div`
 const ContentContainer = styled.div`
     display: flex;
     flex-direction: row;
+    width: 100%;
 `
 
 interface Props {
@@ -29,6 +35,7 @@ interface Props {
 }
 
 export const NavigationSideBar = ({ children }: Props) => {
+    const role = useSelector((state: RootState) => state.identity.identity?.role)
     const navigate = useNavigate()
     const onClick: MenuProps['onClick'] = (e) => {
         navigate(`/${e.key}`, { replace: true })
@@ -63,6 +70,11 @@ export const NavigationSideBar = ({ children }: Props) => {
             icon: <UsergroupAddOutlined />,
         },
         {
+            label: 'Organizations',
+            key: Paths.Organizations,
+            icon: <HomeOutlined />,
+        },
+        {
             label: 'Settings',
             key: Paths.Settings,
             icon: <ToolOutlined />,
@@ -73,6 +85,14 @@ export const NavigationSideBar = ({ children }: Props) => {
             icon: <UserOutlined />,
         },
     ]
+
+    if (role === Role.Admin) {
+        items.push({
+            label: 'Company',
+            key: Paths.Company,
+            icon: <BankOutlined />,
+        })
+    }
 
     return (
         <Container>

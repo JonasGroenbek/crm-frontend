@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
 import activitiesSlice from './slices/activities-slice'
+import companySlice from './slices/company-slice'
 import contactsSlice from './slices/contacts-slice'
 import dealsSlice from './slices/deals-slice'
 import identitySlice from './slices/identity-slice'
 import leadsSlice from './slices/leads-slice'
 import mailsSlice from './slices/mails-slice'
+import modalsSlice from './slices/modals-slice'
 import productsSlice from './slices/products-slice'
 import settingsSlice from './slices/settings-slice'
 
@@ -18,6 +20,8 @@ export const store = configureStore({
         mails: mailsSlice,
         products: productsSlice,
         settings: settingsSlice,
+        company: companySlice,
+        modals: modalsSlice,
     },
 })
 

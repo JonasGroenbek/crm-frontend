@@ -9,7 +9,7 @@ export interface getManyDocumentsQueryParams {
 
 export const getDocumentsRequest = (
     query: getManyDocumentsQueryParams
-): Promise<Response<{ document: Document[]; count: number }>> =>
+): Promise<Response<{ documents: Document[]; count: number }>> =>
     backendConnection.request({
         url: '/documents',
         method: 'GET',

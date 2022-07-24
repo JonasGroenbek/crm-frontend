@@ -1,11 +1,6 @@
+import { Identity } from '../../models/entities'
 import { Response } from '../response.interceptor'
 import { backendConnection } from './backend-connection'
-
-export interface Identity {
-    id: number
-    email: string
-    password: string
-}
 
 export interface LoginResponse {
     identity: Identity
@@ -46,4 +41,18 @@ export const authenticateRequest = (): Promise<Response<LoginResponse>> =>
     backendConnection.request({
         url: '/identity/authenticate',
         method: 'GET',
+    })
+
+export interface getManyIdentitiesQueryParams {
+    limit: number
+    offset: number
+}
+
+export const getIdentitiesRequest = (
+    query: getManyIdentitiesQueryParams
+): Promise<Response<{ identities: Identity[]; count: number }>> =>
+    backendConnection.request({
+        url: '/identity',
+        method: 'GET',
+        params: query,
     })

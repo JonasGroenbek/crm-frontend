@@ -5,6 +5,7 @@ import { logOut } from '../../../slices/identity-slice'
 
 const Container = styled.div`
     display: flex;
+    width: 100%;
 `
 
 export const ProfileRoute = () => {

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { LOCAL_STORAGE_TOKEN_KEY } from '../http/back-end/backend-connection'
-import { Identity } from '../http/back-end/identity'
+import { Identity } from '../models/entities'
 import { RootState } from '../store'
 
 export enum StoreStage {
@@ -11,14 +11,12 @@ export enum StoreStage {
 
 export interface State {
     identity?: Identity
-    authenticateModalVisible: boolean
     jwt?: string
 }
 
 const initialState: State = {
     identity: undefined,
     jwt: undefined,
-    authenticateModalVisible: false,
 }
 
 export const usersSlice = createSlice({
@@ -37,9 +35,6 @@ export const usersSlice = createSlice({
             state.jwt = undefined
             state.identity = undefined
         },
-        setAuthenticationModalVisible: (state, action: PayloadAction<boolean>) => {
-            state.authenticateModalVisible = action.payload
-        },
     },
 })
 
@@ -51,6 +46,6 @@ export const selectIsAuthenticated = (state: RootState) => {
     )
 }
 
-export const { setIdentity, setAuthenticationModalVisible, setJwt, logOut } = usersSlice.actions
+export const { setIdentity, setJwt, logOut } = usersSlice.actions
 
 export default usersSlice.reducer

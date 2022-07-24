@@ -2,8 +2,8 @@ import { Modal } from 'antd'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { setAuthenticationModalVisible } from '../../../slices/identity-slice'
-import { RootState } from '../../../store'
+import { ActiveModal, closeModal } from '../../../../slices/modals-slice'
+import { RootState } from '../../../../store'
 import { ForgotPassword, ForgotPasswordProps } from './authenticate-modal/ForgotPassword'
 import { Login, LoginProps } from './authenticate-modal/Login'
 import { SignUp, SignUpProps } from './authenticate-modal/SignUp'
@@ -30,16 +30,21 @@ const Content: {
 }
 
 export const AuthenticateModal = () => {
-    const isVisible = useSelector((state: RootState) => state.identity.authenticateModalVisible)
+    const { display } = useSelector((state: RootState) => state.modals)
     const [mode, setMode] = useState<ModalMode>(ModalMode.Login)
     const dispatch = useDispatch()
 
     const onCancel = () => {
-        dispatch(setAuthenticationModalVisible(false))
+        dispatch(closeModal())
     }
 
     return (
-        <Modal title={'Log in'} visible={isVisible} footer={[]} onCancel={onCancel}>
+        <Modal
+            title={'Log in'}
+            visible={display === ActiveModal.AuthenticateModal}
+            footer={[]}
+            onCancel={onCancel}
+        >
             <Container>{Content[mode]({ onCancel, setMode })}</Container>
         </Modal>
     )
